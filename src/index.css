@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+}
+
+.font-document-serif {
+  font-family: 'Tinos', 'Times New Roman', Times, serif;
+}
+
+.font-document-sans {
+  font-family: 'Plus Jakarta Sans', Arial, Helvetica, sans-serif;
+}
+
+/* Garis ganda kop surat dinas resmi */
+.kop-border-double {
+  border-bottom: 3.5px double #000000;
+}
+
+/* Print CSS */
+@media print {
+  @page {
+    size: auto;
+    margin: 8mm 10mm;
+  }
+
+  html, body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Hide all UI elements, modals, navbars, sidebars */
+  .no-print,
+  nav,
+  header,
+  footer,
+  button {
+    display: none !important;
+  }
+
+  #printable-letter-wrapper {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    width: 100% !important;
+    overflow: visible !important;
+  }
+
+  #printable-letter {
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    padding: 0 !important;
+    transform: none !important;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+}
+

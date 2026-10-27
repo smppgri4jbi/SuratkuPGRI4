@@ -1,0 +1,6 @@
+{
+  "name": "SuratKita - Pembuat Surat Sekolah Otomatis",
+  "description": "Aplikasi pembuat surat dinas sekolah otomatis dengan standar format resmi Indonesia, pratinjau langsung, dan unduh PDF siap cetak.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

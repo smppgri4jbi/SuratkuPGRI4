@@ -23,7 +23,7 @@
 @media print {
   @page {
     size: auto;
-    margin: 8mm 10mm;
+    margin: 12mm 16mm;
   }
 
   html, body {
@@ -32,12 +32,12 @@
     margin: 0 !important;
     padding: 0 !important;
     width: 100% !important;
-    height: auto !important;
+    font-size: 11pt !important;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
 
-  /* Hide all UI elements, modals, navbars, sidebars */
+  /* Sembunyikan semua elemen UI, modal, toolbar */
   .no-print,
   nav,
   header,
@@ -64,6 +64,8 @@
     min-height: auto !important;
     padding: 0 !important;
     transform: none !important;
+    font-size: 11pt !important;
+    line-height: 1.45 !important;
     page-break-after: avoid;
     page-break-inside: avoid;
   }

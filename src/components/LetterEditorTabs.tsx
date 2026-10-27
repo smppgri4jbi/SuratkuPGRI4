@@ -1147,16 +1147,16 @@ export const LetterEditorTabs: React.FC<Props> = ({
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Ukuran Teks
+                  Ukuran Teks Dokumen
                 </label>
                 <select
                   value={doc.fontSize}
                   onChange={(e) => onChange({ ...doc, fontSize: e.target.value as FontSize })}
                   className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
-                  <option value="sm">Kompak (13px)</option>
-                  <option value="base">Standar (14px)</option>
-                  <option value="lg">Besar (15px)</option>
+                  <option value="sm">Kompak / Hemat Tempat (11.5pt - Muat 1 Lembar)</option>
+                  <option value="base">Standar Baku Naskah Dinas (12.5pt)</option>
+                  <option value="lg">Besar (13.5pt)</option>
                 </select>
               </div>
 
@@ -1169,9 +1169,9 @@ export const LetterEditorTabs: React.FC<Props> = ({
                   onChange={(e) => onChange({ ...doc, marginSize: e.target.value as MarginSize })}
                   className="w-full text-xs px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
-                  <option value="compact">Sempit / Muat Banyak (2 cm)</option>
-                  <option value="standard">Standar Dinas (2.5 cm)</option>
-                  <option value="wide">Lebar (3 cm)</option>
+                  <option value="compact">Kompak (Sempit / Pas 1 Halaman)</option>
+                  <option value="standard">Standar Dinas Resmi</option>
+                  <option value="wide">Lebar</option>
                 </select>
               </div>
             </div>

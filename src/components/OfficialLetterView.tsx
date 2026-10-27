@@ -39,18 +39,18 @@ export const OfficialLetterView: React.FC<Props> = ({
     minHeightStyle = '279.4mm';
   }
 
-  // Padding margin
-  let marginPadding = 'p-12'; // standard (approx 2.5 - 3cm)
+  // Padding margin standar surat resmi
+  let marginPadding = 'p-8 md:p-10'; // Kompak & proporsional
   if (doc.marginSize === 'compact') {
-    marginPadding = 'p-8';
+    marginPadding = 'p-6 md:p-8';
   } else if (doc.marginSize === 'wide') {
-    marginPadding = 'p-16';
+    marginPadding = 'p-10 md:p-12';
   }
 
-  // Font size
-  let textSize = 'text-[14px] leading-relaxed';
-  if (doc.fontSize === 'sm') textSize = 'text-[13px] leading-snug';
-  if (doc.fontSize === 'lg') textSize = 'text-[15px] leading-relaxed';
+  // Font size baku (standar 11-12pt)
+  let textSize = 'text-[12.5px] leading-[1.55]';
+  if (doc.fontSize === 'sm') textSize = 'text-[11.5px] leading-[1.45]';
+  if (doc.fontSize === 'lg') textSize = 'text-[13.5px] leading-[1.65]';
 
   // Warna stempel
   const stampColorClass =
@@ -63,7 +63,7 @@ export const OfficialLetterView: React.FC<Props> = ({
   return (
     <div
       id="printable-letter"
-      className={`bg-white text-slate-900 mx-auto shadow-xl transition-all duration-200 ${fontClass} ${marginPadding} relative flex flex-col justify-between`}
+      className={`bg-white text-slate-900 mx-auto shadow-lg transition-all duration-200 ${fontClass} ${marginPadding} relative flex flex-col justify-between`}
       style={{
         width: widthStyle,
         minHeight: minHeightStyle,
@@ -75,19 +75,19 @@ export const OfficialLetterView: React.FC<Props> = ({
       <div>
         {/* KOP SURAT RESMI */}
         {doc.showKop && (
-          <header className="mb-5">
-            <div className="flex items-center justify-between gap-4">
+          <header className="mb-4">
+            <div className="flex items-center justify-between gap-3">
               {/* Logo Kiri (Pemda / Kemdikbud) */}
-              <div className="w-24 h-24 flex items-center justify-center shrink-0">
+              <div className="w-[68px] h-[68px] flex items-center justify-center shrink-0">
                 {school.logoLeft ? (
                   <img
                     src={school.logoLeft}
                     alt="Logo Kiri"
-                    className="max-h-24 max-w-24 object-contain"
+                    className="max-h-[68px] max-w-[68px] object-contain"
                     referrerPolicy="no-referrer"
                   />
                 ) : (
-                  <div className="w-20 h-20 border border-dashed border-slate-300 rounded flex items-center justify-center text-xs text-slate-400">
+                  <div className="w-14 h-14 border border-dashed border-slate-300 rounded flex items-center justify-center text-[10px] text-slate-400">
                     Logo
                   </div>
                 )}
@@ -95,46 +95,46 @@ export const OfficialLetterView: React.FC<Props> = ({
 
               {/* Teks Identitas Sekolah */}
               <div className="flex-1 text-center px-1">
-                <h3 className="font-bold text-sm tracking-wide uppercase leading-tight text-slate-900">
+                <h3 className="font-bold text-[11.5px] tracking-wide uppercase leading-tight text-slate-900">
                   {school.govHeader}
                 </h3>
                 {school.subHeader && (
-                  <h4 className="font-bold text-xs tracking-wide uppercase leading-tight text-slate-800 mt-0.5">
+                  <h4 className="font-bold text-[10.5px] tracking-wide uppercase leading-tight text-slate-800 mt-0.5">
                     {school.subHeader}
                   </h4>
                 )}
-                <h2 className="font-bold text-lg md:text-xl tracking-wider uppercase leading-snug text-slate-950 mt-1">
+                <h2 className="font-bold text-[15.5px] tracking-wider uppercase leading-snug text-slate-950 mt-0.5">
                   {school.name}
                 </h2>
-                <p className="text-[11px] leading-tight text-slate-800 mt-0.5 font-medium">
+                <p className="text-[10px] leading-tight text-slate-800 mt-0.5 font-medium">
                   NPSN: {school.npsn} {school.akreditasi ? `· ${school.akreditasi}` : ''}
                 </p>
-                <p className="text-[11px] leading-tight text-slate-700 mt-0.5">
+                <p className="text-[10px] leading-tight text-slate-700 mt-0.5">
                   {school.address}, {school.city}
                 </p>
-                <p className="text-[10px] leading-tight text-slate-600 mt-0.5">
+                <p className="text-[9.5px] leading-tight text-slate-600 mt-0.5">
                   Telepon: {school.phone} · Email: {school.email} · Web: {school.website}
                 </p>
               </div>
 
               {/* Logo Kanan (Logo Sekolah / Tut Wuri) */}
-              <div className="w-24 h-24 flex items-center justify-center shrink-0">
+              <div className="w-[68px] h-[68px] flex items-center justify-center shrink-0">
                 {school.logoRight ? (
                   <img
                     src={school.logoRight}
                     alt="Logo Kanan"
-                    className="max-h-24 max-w-24 object-contain"
+                    className="max-h-[68px] max-w-[68px] object-contain"
                     referrerPolicy="no-referrer"
                   />
                 ) : (
-                  <div className="w-24 h-24" />
+                  <div className="w-[68px] h-[68px]" />
                 )}
               </div>
             </div>
 
             {/* Garis Ganda Kop Surat Dinas */}
             {doc.showDoubleLine && (
-              <div className="mt-3 kop-border-double w-full pb-0.5" />
+              <div className="mt-2.5 kop-border-double w-full pb-0.5" />
             )}
           </header>
         )}
@@ -510,7 +510,7 @@ export const OfficialLetterView: React.FC<Props> = ({
             </p>
 
             {/* Area Ruang Tanda Tangan dan Stempel */}
-            <div className="h-24 my-1 relative flex items-center justify-center">
+            <div className="h-16 my-1 relative flex items-center justify-center">
               {/* Tanda Tangan Digital jika ada */}
               {school.enableSignature && (
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
@@ -518,13 +518,13 @@ export const OfficialLetterView: React.FC<Props> = ({
                     <img
                       src={school.signatureUrl}
                       alt="Tanda Tangan"
-                      className="max-h-20 max-w-44 object-contain filter contrast-125"
+                      className="max-h-16 max-w-36 object-contain filter contrast-125"
                     />
                   ) : (
                     /* Default Elegant Calligraphy Signature simulation */
                     <svg
                       viewBox="0 0 200 80"
-                      className="w-40 h-16 text-blue-950 opacity-90"
+                      className="w-32 h-14 text-blue-950 opacity-90"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2.2"
@@ -541,19 +541,19 @@ export const OfficialLetterView: React.FC<Props> = ({
               {/* STEMPEL RESMI SEKOLAH OTOMATIS */}
               {school.enableStamp && (
                 <div
-                  className={`absolute -left-6 top-1 w-24 h-24 rounded-full border-2 ${stampColorClass} flex items-center justify-center pointer-events-none opacity-85 rotate-[-12deg] z-0 select-none shadow-sm`}
+                  className={`absolute -left-4 top-0 w-[74px] h-[74px] rounded-full border-[1.8px] ${stampColorClass} flex items-center justify-center pointer-events-none opacity-85 rotate-[-12deg] z-0 select-none shadow-xs`}
                 >
                   {/* Lingkaran dalam putus-putus */}
-                  <div className="w-[86px] h-[86px] rounded-full border border-dashed border-current flex flex-col items-center justify-between p-1 text-center">
-                    <span className="text-[6.5px] font-bold uppercase tracking-tight max-w-[70px] truncate leading-tight mt-0.5">
+                  <div className="w-[66px] h-[66px] rounded-full border border-dashed border-current flex flex-col items-center justify-between p-0.5 text-center">
+                    <span className="text-[5.5px] font-bold uppercase tracking-tight max-w-[56px] truncate leading-tight mt-0.5">
                       {school.name}
                     </span>
-                    <div className="flex items-center gap-1 my-auto">
-                      <span className="text-[9px]">★</span>
-                      <span className="text-[7px] font-black uppercase tracking-wider">RESMI</span>
-                      <span className="text-[9px]">★</span>
+                    <div className="flex items-center gap-0.5 my-auto">
+                      <span className="text-[7px]">★</span>
+                      <span className="text-[6px] font-black uppercase tracking-wider">RESMI</span>
+                      <span className="text-[7px]">★</span>
                     </div>
-                    <span className="text-[6px] font-bold uppercase tracking-tight max-w-[70px] truncate leading-tight mb-0.5">
+                    <span className="text-[5px] font-bold uppercase tracking-tight max-w-[56px] truncate leading-tight mb-0.5">
                       DINAS PENDIDIKAN
                     </span>
                   </div>

@@ -167,19 +167,19 @@ export const PrintDownloadModal: React.FC<Props> = ({
               <span>Pengaturan Format Dokumen & Keabsahan</span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
               {/* Ukuran Kertas */}
               <div>
                 <label className="block text-slate-700 font-semibold mb-1">
                   Ukuran Kertas:
                 </label>
-                <div className="flex items-center gap-1.5">
-                  {(['A4', 'F4', 'Letter'] as PaperSize[]).map((size) => (
+                <div className="flex items-center gap-1">
+                  {(['A4', 'F4'] as PaperSize[]).map((size) => (
                     <button
                       key={size}
                       type="button"
                       onClick={() => onUpdateDocument({ ...doc, paperSize: size })}
-                      className={`px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors ${
+                      className={`flex-1 py-1.5 rounded-lg border text-xs font-semibold transition-colors ${
                         doc.paperSize === size
                           ? 'bg-indigo-600 text-white border-indigo-600'
                           : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
@@ -188,6 +188,39 @@ export const PrintDownloadModal: React.FC<Props> = ({
                       {size === 'F4' ? 'F4 (Folio)' : size}
                     </button>
                   ))}
+                </div>
+              </div>
+
+              {/* Ukuran Teks / Kerapian */}
+              <div>
+                <label className="block text-slate-700 font-semibold mb-1">
+                  Kerapian / Ukuran Teks:
+                </label>
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => onUpdateDocument({ ...doc, fontSize: 'sm', marginSize: 'compact' })}
+                    title="Cocok agar surat tidak meluber ke lembar kedua"
+                    className={`flex-1 py-1.5 rounded-lg border text-xs font-semibold transition-colors ${
+                      doc.fontSize === 'sm'
+                        ? 'bg-indigo-600 text-white border-indigo-600'
+                        : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
+                    }`}
+                  >
+                    Kompak (11pt)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onUpdateDocument({ ...doc, fontSize: 'base', marginSize: 'standard' })}
+                    title="Ukuran standar naskah dinas"
+                    className={`flex-1 py-1.5 rounded-lg border text-xs font-semibold transition-colors ${
+                      doc.fontSize === 'base'
+                        ? 'bg-indigo-600 text-white border-indigo-600'
+                        : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'
+                    }`}
+                  >
+                    Standar (12pt)
+                  </button>
                 </div>
               </div>
 

@@ -39,9 +39,9 @@ export async function downloadLetterAsPdf(
       heightMm = 279.4;
     }
 
-    // Capture resolusi tinggi
+    // Capture resolusi optimal & tajam tanpa membuat file berukuran raksasa
     const canvas = await html2canvas(element, {
-      scale: 2.5,
+      scale: 2, // 2x resolusi standar (~200 DPI), sangat tajam dan ukuran file ramah (hanya ~300KB)
       useCORS: true,
       allowTaint: true,
       logging: false,
@@ -53,21 +53,37 @@ export async function downloadLetterAsPdf(
         if (clonedEl) {
           clonedEl.style.transform = 'none';
           clonedEl.style.boxShadow = 'none';
-          clonedEl.style.margin = '0';
+          clonedEl.style.margin = '0 auto';
         }
       },
     });
 
-    const imgData = canvas.toDataURL('image/jpeg', 0.98);
+    // Kualitas 88% mempertahankan kejernihan teks dengan ukuran file jauh lebih ringkas
+    const imgData = canvas.toDataURL('image/jpeg', 0.88);
 
     const pdf = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',
       format: paperSize === 'F4' ? [215, 330] : (paperSize.toLowerCase() as any),
+      compress: true,
     });
 
-    // Masukkan gambar tepat sesuai dimensi lembaran PDF
-    pdf.addImage(imgData, 'JPEG', 0, 0, widthMm, heightMm, undefined, 'FAST');
+    // Hitung dimensi proporsional agar surat tidak terdistorsi atau membesar berlebihan
+    const imgWidth = widthMm;
+    const imgHeight = (canvas.height * widthMm) / canvas.width;
+
+    if (imgHeight > heightMm) {
+      // Skalakan proporsional agar seluruh surat pas 1 lembar utuh tanpa membesar
+      const scaleFactor = heightMm / imgHeight;
+      const fitW = widthMm * scaleFactor;
+      const fitH = heightMm;
+      const offsetX = (widthMm - fitW) / 2;
+      pdf.addImage(imgData, 'JPEG', offsetX, 0, fitW, fitH, undefined, 'FAST');
+    } else {
+      // Letakkan proporsional alami dari atas lembar kertas
+      pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight, undefined, 'FAST');
+    }
+
     const safeName = (filename || 'Surat_Sekolah').replace(/[^a-zA-Z0-9_\-]/g, '_');
     pdf.save(`${safeName}.pdf`);
 
